@@ -573,17 +573,9 @@
             position: relative;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px;
-        }
+        /* Decorative bar moved from pseudo-element to a real element (.decor-bar)
+           to avoid paint/timing flashes on first load across browsers. The
+           old pseudo-element is disabled below. */
 
         .section-title h2 {
             font-size: 2.5rem;
@@ -624,23 +616,27 @@
             transform: translateY(0);
         }
 
-        .section-title::after {
-            transition: transform 420ms ease, opacity 420ms ease;
+        /* disable the pseudo-element to prevent flashes */
+        .section-title::after { display: none !important; }
+
+        /* New decorative bar element placed inside .section-title */
+        .section-title .decor-bar {
+            display: block;
+            margin: 12px auto 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 4px;
             transform-origin: center;
-            transform: translateX(-50%) scaleX(0) !important;
-            /* force-hide until section becomes active to avoid initial flash */
-            opacity: 0 !important;
-            visibility: hidden !important;
+            transform: scaleX(0);
+            opacity: 0;
+            transition: transform 420ms ease, opacity 420ms ease;
             will-change: transform, opacity;
-            backface-visibility: hidden;
-            pointer-events: none;
         }
 
-        section.in-view .section-title::after {
-            transform: translateX(-50%) scaleX(1) !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            will-change: transform, opacity;
+        section.in-view .section-title .decor-bar {
+            transform: scaleX(1);
+            opacity: 1;
         }
 
         section.in-view .section-title p {
@@ -1441,6 +1437,7 @@
             <div class="section-title animate-fade-in-up">
                 <h2>About Me</h2>
                 <p>Get to know more about my background, interests, and what drives me as a developer</p>
+                <span class="decor-bar" aria-hidden="true"></span>
             </div>
             <div class="about-content">
                 <div class="about-text">
@@ -1464,6 +1461,7 @@
             <div class="section-title animate-fade-in-up">
                 <h2>My Skills</h2>
                 <p>Technologies and tools I'm familiar with and currently working to master</p>
+                <span class="decor-bar" aria-hidden="true"></span>
             </div>
             <div class="skills-container">
                 <div class="skill-card animate-fade-in-up delay-1">
@@ -1648,6 +1646,7 @@
             <div class="section-title animate-fade-in-up">
                 <h2>Education</h2>
                 <p>My academic journey and qualifications</p>
+                <span class="decor-bar" aria-hidden="true"></span>
             </div>
             <div class="education-container">
                 <div class="education-item animate-fade-in-up delay-1">
@@ -1699,6 +1698,7 @@
             <div class="section-title animate-fade-in-up">
                 <h2>Projects</h2>
                 <p>Some of my personal projects showcasing my skills and learning journey</p>
+                <span class="decor-bar" aria-hidden="true"></span>
             </div>
             <div class="projects-grid">
                 <div class="project-card animate-fade-in-up delay-1">
@@ -1759,6 +1759,7 @@
             <div class="section-title animate-fade-in-up">
                 <h2>Contact Me</h2>
                 <p>Feel free to reach out for collaboration opportunities or just to say hello!</p>
+                <span class="decor-bar" aria-hidden="true"></span>
             </div>
             <div class="contact-container">
                 <div class="contact-info">
