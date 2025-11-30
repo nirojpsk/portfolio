@@ -1347,6 +1347,26 @@
             }
         }
 
+        /* Additional mobile fixes: allow hero content to expand and reduce avatar size
+           so text and buttons are not clipped on small screens. */
+        @media (max-width: 768px) {
+            .hero-content {
+                overflow: visible;
+                padding: 20px 24px;
+            }
+
+            .hero-grid { align-items: flex-start; gap: 18px; }
+
+            .hero-avatar {
+                width: 200px !important;
+                height: 260px !important;
+                margin: 0 auto 14px;
+            }
+
+            .hero-badges { justify-content: center; }
+            .btn-group { justify-content: center; gap: 12px; }
+        }
+
         @media (max-width: 480px) {
             .hero h1 {
                 font-size: 2rem;
