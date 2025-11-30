@@ -627,12 +627,14 @@
         .section-title::after {
             transition: transform 420ms ease, opacity 420ms ease;
             transform-origin: center;
-            transform: scaleX(0);
+            transform: translateX(-50%) scaleX(0);
             opacity: 0.6;
         }
 
         section.in-view .section-title::after {
-            transform: scaleX(1);
+            transform: translateX(-50%) scaleX(1);
+            opacity: 1;
+            will-change: transform, opacity;
         }
 
         section.in-view .section-title p {
@@ -1648,10 +1650,10 @@
                             <img src="purwanchal.jpg" alt="Purwanchal Campus" onerror="this.onerror=null;this.src='pranit.jpg'">
                         </div>
                         <div class="education-text">
-                            <h3>Bachelor of Engineering in Computer Engineering</h3>
+                            <h3>Bachelor of Engineering in Electronics, Communication and Information Technology</h3>
                             <a href="https://www.ioepc.edu.np/" class="institution" target="_blank">Purwanchal Campus, Dharan</a>
                             <div class="date">2021 - 2025</div>
-                            <p>Graduated with a strong foundation in computer engineering principles, software development, and system design. Key coursework included Data Structures & Algorithms, Database Management Systems, Computer Networks, and Web Technologies.</p>
+                            <p>Graduated with a strong foundation in Electronics, communication and IT engineering, software development,Arduino and other Electronics related components as well as system design. Key coursework included Data Structures & Algorithms, Database Management Systems, Computer Networks, and Web Technologies.</p>
                         </div>
                     </div>
                 </div>
