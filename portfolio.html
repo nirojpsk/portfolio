@@ -627,13 +627,19 @@
         .section-title::after {
             transition: transform 420ms ease, opacity 420ms ease;
             transform-origin: center;
-            transform: translateX(-50%) scaleX(0);
-            opacity: 0.6;
+            transform: translateX(-50%) scaleX(0) !important;
+            /* force-hide until section becomes active to avoid initial flash */
+            opacity: 0 !important;
+            visibility: hidden !important;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            pointer-events: none;
         }
 
         section.in-view .section-title::after {
-            transform: translateX(-50%) scaleX(1);
-            opacity: 1;
+            transform: translateX(-50%) scaleX(1) !important;
+            opacity: 1 !important;
+            visibility: visible !important;
             will-change: transform, opacity;
         }
 
