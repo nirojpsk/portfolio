@@ -17,6 +17,9 @@
             --primary: #10b981;
             --primary-light: #34d399;
             --secondary: #f8fafc;
+            /* dynamic viewport and header variables for mobile fixes */
+            --vh: 1vh;
+            --header-height: 80px;
             --dark: #0f172a;
             --darker: #0a0f1f;
             --gray: #94a3b8;
@@ -332,12 +335,12 @@
 
         /* Hero Section */
         .hero {
-            /* Use min-height that subtracts the fixed header height so
-               the hero content never overflows the viewport on mobile. */
-            min-height: calc(100vh - 80px);
+            /* Use dynamic viewport unit and header height to avoid mobile
+               browser 100vh issues (address bar shrinking/expanding). */
+            min-height: calc(var(--vh, 1vh) * 100 - var(--header-height, 80px));
             display: flex;
             align-items: center;
-            padding-top: 80px;
+            padding-top: var(--header-height, 80px);
             position: relative;
             overflow: hidden;
             z-index: 0;
@@ -2194,6 +2197,27 @@
             }, { root: null, rootMargin: '0px 0px -20% 0px', threshold: 0.25 });
 
             eduImgs.forEach(img => imgObserver.observe(img));
+        })();
+
+        // Fix mobile viewport 100vh inconsistencies by setting CSS variables
+        // `--vh` (1% of the actual viewport height) and `--header-height` so
+        // hero sizing accounts for browser UI (address bar) and dynamic header.
+        (function(){
+            const setVhAndHeader = () => {
+                document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+                const headerEl = document.querySelector('header');
+                const h = headerEl ? headerEl.offsetHeight + 'px' : '80px';
+                document.documentElement.style.setProperty('--header-height', h);
+            };
+
+            // run on load
+            setVhAndHeader();
+
+            // update on resize/orientationchange to handle mobile address bar changes
+            window.addEventListener('resize', setVhAndHeader);
+            window.addEventListener('orientationchange', setVhAndHeader);
+            // also update after a short delay on load to catch UI chrome settling
+            window.addEventListener('load', () => setTimeout(setVhAndHeader, 200));
         })();
         
         // Project card hover effects with real links
